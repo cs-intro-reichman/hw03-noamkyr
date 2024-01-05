@@ -1,5 +1,4 @@
 public class Calendar {
-
     // Starting the calendar on 1/1/1900
     static int dayOfMonth = 1;
     static int month = 1;
@@ -20,18 +19,21 @@ public class Calendar {
         int debugDaysCounter = 0;
         //// Write the necessary initialization code, and replace the condition
         //// of the while loop with the necessary condition
-
-        year = Integer.parseInt(args[0]);
-
-
         int count_first_sunday = 0;
+
+        int requested_year = Integer.parseInt(args[0]);
+
         while (true) {
-            String msg = String.valueOf(dayOfMonth)+'/'+String.valueOf(month)+'/'+String.valueOf(year);
-            if (dayOfWeek == 1){
-                msg += " Sunday";
+
+            if (year == requested_year){
+                String msg = String.valueOf(dayOfMonth)+'/'+String.valueOf(month)+'/'+String.valueOf(year);
+                if (dayOfWeek == 1){
+                    msg += " Sunday";
+                }
+
+                System.out.println(msg);
             }
 
-            System.out.println(msg);
 
             if (dayOfMonth == 1 && dayOfWeek == 1){
                 count_first_sunday ++;
@@ -43,14 +45,10 @@ public class Calendar {
 
             //// If you want to stop the loop after n days, replace the condition of the
             //// if statement with the condition (debugDaysCounter == n)
-            if ((month == 12 && dayOfMonth == 31) || debugDaysCounter == end_stop) {
+            if ((year > requested_year && month == 12 && dayOfMonth == 31) || debugDaysCounter == end_stop) {
                 break;
             }
         }
-        //// Write the necessary ending code here
-
-        System.out.println("During the 20th century, "+count_first_sunday+" Sundays fell on the first day of the month");
-
     }
 
     // Advances the date (day, month, year) and the day-of-the-week.
@@ -61,7 +59,12 @@ public class Calendar {
         if (dayOfMonth < nDaysInMonth){
             dayOfMonth ++;
         } else {
-            month ++;
+            if (month == 12){
+                month = 1;
+                year ++;
+            } else {
+                month ++;
+            }
             dayOfMonth = 1;
         }
 
@@ -102,6 +105,4 @@ public class Calendar {
         return 31;
 
     }
-
-
 }
